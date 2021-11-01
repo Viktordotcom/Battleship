@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="bundle.js" defer></script>
+    <title>Battleship</title>
+  </head>
+  <body draggable="false">
+    <div class="hidden-modal">
+      <p id="winner"></p>
+      <p>New Game?</p>
+      <button id="btn-new-game">YES</button>
+    </div>
+    <div class="content">
+      <div class="models-and-boards">
+        <div class="made-ships-container">
+          <button id="btn-rotate" class="material-icons">loop</button>
+          <div
+            class="ship patrol-boat-container"
+            draggable="true"
+            data-direction="0"
+          >
+            <div id="patrol-boat-0"></div>
+          </div>
+          <div
+            class="ship submarine-container"
+            draggable="true"
+            data-direction="0"
+          >
+            <div id="submarine-0"></div>
+            <div id="submarine-1"></div>
+          </div>
+          <div
+            class="ship destroyer-container"
+            draggable="true"
+            data-direction="0"
+          >
+            <div id="destroyer-0"></div>
+            <div id="destroyer-1"></div>
+            <div id="destroyer-2"></div>
+          </div>
+          <div
+            class="ship battleship-container"
+            draggable="true"
+            data-direction="0"
+          >
+            <div id="battleship-0"></div>
+            <div id="battleship-1"></div>
+            <div id="battleship-2"></div>
+            <div id="battleship-3"></div>
+          </div>
+          <div
+            class="ship carrier-container"
+            draggable="true"
+            data-direction="0"
+          >
+            <div id="carrier-0"></div>
+            <div id="carrier-1"></div>
+            <div id="carrier-2"></div>
+            <div id="carrier-3"></div>
+            <div id="carrier-4"></div>
+          </div>
+        </div>
+        <section>
+          <div class="modal">
+            <div class="boards computer">
+              <div id="images-computer"></div>
+              <div class="board-container"></div>
+              <p id="name-computer"></p>
+              <p id="computer-ships"></p>
+            </div>
+          </div>
+          <div class="boards human">
+            <div id="images-human"></div>
+            <div class="board-container"></div>
+            <p id="name-human"></p>
+            <p id="human-ships"></p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>
