@@ -138,6 +138,16 @@ const renderHumanBoard = (board, container) => {
   }
 };
 
+function attack(board, square, game) {
+  const coordinateToAttack = square.dataset.key.split(",");
+  const xCoordinate = coordinateToAttack[0];
+  const yCoordinate = coordinateToAttack[1];
+
+  game.attackThisTurn(xCoordinate, yCoordinate);
+  addClassToSquare(board, xCoordinate, yCoordinate, square);
+  square.classList.add("clicked");
+}
+
 const renderComputerBoard = (board, container, onGame) => {
   for (let i = 0; i < 10; i++) {
     for (let j = 0; j < 10; j++) {
@@ -146,12 +156,7 @@ const renderComputerBoard = (board, container, onGame) => {
       box.addEventListener(
         "click",
         () => {
-          const squaresToAttack = box.dataset.key.split(",");
-          const xSquare = squaresToAttack[0];
-          const ySquare = squaresToAttack[1];
-          onGame.attackThisTurn(xSquare, ySquare);
-          addClassToSquare(board, i, j, box);
-          box.classList.add("clicked");
+          attack(board, box, onGame);
           humanContainer.replaceChildren();
           renderHumanBoard(onGame.humanGameboard.board, humanContainer);
         },
