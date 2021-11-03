@@ -3,8 +3,8 @@ import Game from "./game";
 const hiddenModal = document.querySelector(".hidden-modal");
 const modal = document.querySelector(".modal");
 const shipModelContainer = document.querySelector(".made-ships-container");
-const computerContainer = document.querySelectorAll(".board-container")[0];
-const humanContainer = document.querySelectorAll(".board-container")[1];
+const [computerContainer, humanContainer] =
+  document.querySelectorAll(".board-container");
 const computerImagesContainer = document.getElementById("images-computer");
 const humanImagesContainer = document.getElementById("images-human");
 const btnNewGame = document.getElementById("btn-new-game");
@@ -140,8 +140,7 @@ const renderHumanBoard = (board, container) => {
 
 function attack(board, square, game) {
   const coordinateToAttack = square.dataset.key.split(",");
-  const xCoordinate = coordinateToAttack[0];
-  const yCoordinate = coordinateToAttack[1];
+  const [xCoordinate, yCoordinate] = coordinateToAttack;
 
   game.attackThisTurn(xCoordinate, yCoordinate);
   addClassToSquare(board, xCoordinate, yCoordinate, square);
@@ -157,8 +156,7 @@ const renderComputerBoard = (board, container, onGame) => {
         "click",
         () => {
           attack(board, box, onGame);
-          humanContainer.replaceChildren();
-          renderHumanBoard(onGame.humanGameboard.board, humanContainer);
+          updateContainer(onGame.humanGameboard.board, humanContainer);
         },
         { once: true }
       );
@@ -166,6 +164,16 @@ const renderComputerBoard = (board, container, onGame) => {
     }
   }
 };
+
+function updateContainer(board, container, game) {
+  if (game === undefined) {
+    container.replaceChildren();
+    renderHumanBoard(board, container);
+  } else {
+    container.replaceChildren();
+    renderComputerBoard(board, container, game);
+  }
+}
 
 function placeShipOnHumanboard() {
   const currentGame = games[games.length - 1];
@@ -176,8 +184,7 @@ function placeShipOnHumanboard() {
     shipLength: draggedShipLength,
     direction: draggedShipDireciton,
   });
-  humanContainer.replaceChildren();
-  renderHumanBoard(currentGame.humanGameboard.board, humanContainer);
+  updateContainer(currentGame.humanGameboard.board, humanContainer);
 }
 
 function placeShipOnComputerboard() {
@@ -191,8 +198,7 @@ function placeShipOnComputerboard() {
       direction: Math.floor(Math.random() * 2),
     });
 
-    computerContainer.replaceChildren();
-    renderComputerBoard(
+    updateContainer(
       currentGame.computerGameboard.board,
       computerContainer,
       currentGame
