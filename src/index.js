@@ -86,6 +86,8 @@ function dragDrop(e) {
   }
 
   placeShipOnHumanboard();
+  renderOtherElements();
+
   if (
     games[games.length - 1].humanGameboard.board[x][y] === draggedShipLength
   ) {
@@ -161,6 +163,7 @@ const renderComputerBoard = (board, container, onGame) => {
         },
         { once: true }
       );
+      renderOtherElements();
       container.appendChild(box);
     }
   }
