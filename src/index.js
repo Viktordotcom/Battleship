@@ -157,6 +157,7 @@ const renderComputerBoard = (board, container, onGame) => {
         () => {
           attack(board, box, onGame);
           updateContainer(onGame.humanGameboard.board, humanContainer);
+          onBoardsChange();
         },
         { once: true }
       );
@@ -332,15 +333,9 @@ function gameOver() {
   }
 }
 
-function watchBoardsOnChange() {
-  setInterval(() => {
-    setTimeout(() => {
-      renderOtherElements();
-      renderShipImages();
-      greyOutSunkShips(games[games.length - 1]);
-      gameOver(games[games.length - 1]);
-    }, 100);
-  }, 500);
+function onBoardsChange() {
+  greyOutSunkShips(games[games.length - 1]);
+  gameOver(games[games.length - 1]);
 }
 
 btnRotate.addEventListener("click", rotateShips);
@@ -356,4 +351,5 @@ ships.forEach((ship) =>
 
 renderComputerBoard(game1.computerGameboard.board, computerContainer, game1);
 renderHumanBoard(game1.humanGameboard.board, humanContainer);
-watchBoardsOnChange();
+renderOtherElements();
+renderShipImages();
